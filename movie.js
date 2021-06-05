@@ -1,22 +1,50 @@
-var button = document.querySelector("input#search");
-button.addEventListener("click", loadApi);
+find("button#search").addEventListener("click", loadApi);
 
-var input = document.querySelector("input#movie");
+var input = find("input#title");
+var div = find("div#result");
+var ul = find("ul#ratings");
 
+function create(element)
+{
+	return document.createElement(element);
+}
+function append(parent, element)
+{
+	return parent.appendChild(element);
+}
+function find(element)
+{
+	return document.querySelector(element);
+}
+function entry(id, content)
+{
+	var span = create("span");
+	span.innerHTML = content;
+	span.setAttribute('id', id);
+	append(div, span);
+}
 
 function loadApi()
 {
-	fetch("http://www.omdbapi.com/?apikey=167eb644&t="+input.value)
+	fetch("https://www.omdbapi.com/?apikey=167eb644&t="+input.value)
 	.then(response => response.json())
-	.then(data => showResult(data));
-}
+	.then(function(data) {
+		console.log(data);
+		entry("title",`${data.Title} (${data.Year})`);
+		entry("genre",`Genre: ${data.Genre}`);
 
-function showResult(data)
-{
-	console.log(data);
-	var title = document.querySelector("h1#title").innerHTML = data.Title;
-	var year = document.querySelector("h2#year").innerHTML = data.Year;
-	var runtime = document.querySelector("h3#runtime").innerHTML = data.Runtime;
-	var genre = document.querySelector("h4#genre").innerHTML = data.Genre;
+		var ratings = data.Ratings;
+		ratings.map(function(rating)
+		{
+			var li = create("li");
+			var span = create("span");
+			span.innerHTML = `${rating.Source}: ${rating.Value}`;
+			append(li, span);
+			append(ul, li);
+		})
+	})
+	.catch(function(error) {
+		console.log(error);
+	});
 }
 

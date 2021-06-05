@@ -1,12 +1,27 @@
-<html>
-<body>
-	<input type="text" id="movie" placeholder="Movie name">
-	<input type="submit" id="search" value="Search">
-	<hr>
-	<h1 id="title"></h1>
-	<h2 id="year"></h2>
-	<h3 id="runtime"></h3>
-	<h4 id="genre"></h4>
-</body>
-<script src="movie.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Moviefinder</title>
+    <style>
+	</style>
+  </head>
+  <body>
+    <div>
+      <h1>Movie Finder</h1>
+      <p>Search your movie</p>
+      <input id="title" type="text" placeholder="Title" />
+      <input id="input-year" type="text" placeholder="Year" />
+      <button id="search">Search</button>
+    </div>
+    <div id="result">
+      <p>Your result</p>
+      <p id="result-title"></p>
+      <p></p>
+      <ul id="ratings"></ul>
+    </div>
+    <script src="movie.js"></script>
+  </body>
 </html>
